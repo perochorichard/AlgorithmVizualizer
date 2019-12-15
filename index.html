@@ -4,13 +4,21 @@
 <head>
     <title>Index</title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!--jquery-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!--bootstrap-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!--popper-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/popper.min.js"></script>
+    <!--font-awesome-->
     <script src="https://kit.fontawesome.com/95c8f7aee3.js"></script>
-
+    <!--jquery-svg-->
+    <link rel="stylesheet" type="text/css" href="css/jquery.svg.css">
+    <script type="text/javascript" src="js/jquery.svg.js"></script> 
+    <!--local-->
     <link rel="stylesheet" href="main.css">
+    <script src="main.js"></script>
 </head>
 
 <body>
@@ -23,12 +31,10 @@
     </nav>
 
     <div class="container-fluid">
-        <div class="bg-darkgrey rounded mt-5 text-center">
+        <div class="bg-darkgrey rounded mt-5 text-center p-4" id="main">
             <div class="lead text-light text-center mb-5">Bubble Sort</div>
-            <svg id="visualizer">
-                <rect width="20" height="100" style="fill:#bacddf;stroke-width:3;" />
-                <rect width="20" height="100" style="fill:#ffff;stroke-width:3;" />
-            </svg>
+            <input type='range' value='5' min='5' max='100' id='arraySlider'>
+            <p id='debug'></p>
         </div>
 
     </div>
