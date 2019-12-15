@@ -1,0 +1,21 @@
+body {
+    background-color: #545454;
+}
+
+.bg-grey {
+    background-color: #545454;
+}
+
+.bg-main {
+    background-color: #34b2ae;
+}
+
+.bg-darkgrey {
+    background-color: #474646;
+}
+
+#visualizer {
+    background-color: #545454;
+    height: 300px;
+    width: 800px;
+}
