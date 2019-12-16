@@ -22,6 +22,10 @@ body {
     fill: #34b2ae;
 }
 
+.fill-light {
+    fill: white;
+}
+
 #visualizer {
     background-color: #545454;
     height: 300px;
