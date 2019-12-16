@@ -14,6 +14,10 @@ body {
     background-color: #474646;
 }
 
+.unsorted {
+    fill: #bacddf;
+}
+
 #visualizer {
     background-color: #545454;
     height: 300px;
