@@ -14,8 +14,12 @@ body {
     background-color: #474646;
 }
 
-.unsorted {
+.fill-secondary {
     fill: #bacddf;
+}
+
+.fill-primary {
+    fill: #34b2ae;
 }
 
 #visualizer {
