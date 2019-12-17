@@ -30,14 +30,15 @@
         </button>
     </nav>
 
-    <div class="container-fluid">
-        <div class="rounded mt-5 text-center p-4 bg-dark">
+    <div class="container-fluid text-center">
+        <input type="range" class="custom-range mt-4" id="dataArrayRange">
+        <div class="rounded p-4 bg-dark">
             <div class="lead text-light text-center mb-5">Quick Sort</div>
-            <table class="table table-borderless">
+            <table class="table table-sm table-borderless">
                 <tbody>
                     <tr id="datapoints"></tr>
                     <tr>
-                        <td colspan="100" class="bg-info"></td>
+                        <td id="xaxis" class="p-0"></td>
                     </tr>
                 </tbody>
             </table>
