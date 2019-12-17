@@ -10,6 +10,10 @@ body {
     background-color: #34b2ae;
 }
 
+.bg-unsorted {
+    background-color: #bacddf;
+}
+
 .bg-darkgrey {
     background-color: #474646;
 }
@@ -24,10 +28,4 @@ body {
 
 .fill-light {
     fill: white;
-}
-
-#visualizer {
-    background-color: #545454;
-    height: 300px;
-    width: 800px;
 }
