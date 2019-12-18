@@ -18,14 +18,14 @@ body {
     background-color: #474646;
 }
 
-.fill-secondary {
-    fill: #bacddf;
-}
-
-.fill-primary {
-    fill: #34b2ae;
-}
-
-.fill-light {
-    fill: white;
-}
+.custom-range::-webkit-slider-thumb {
+    background: #34b2ae;
+  }
+  
+  .custom-range::-moz-range-thumb {
+    background: #34b2ae;
+  }
+  
+  .custom-range::-ms-thumb {
+    background: #34b2ae;
+  }
