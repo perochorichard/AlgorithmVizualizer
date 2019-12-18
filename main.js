@@ -31,19 +31,37 @@ window.onload = function () {
         console.log(arr); // BEFORE SORT
         // BUBBLE SORT
         // first loop goes down (highest to lowest sort)
-        for (var i = arr.length; i > 0; i--) {
-            // iterates through i (i = i-1 every iteration)
-            for (var j = 1; j < i; j++) {
-                if (arr[j - 1] > arr[j]) {
-                    arr = swap(j - 1, j, arr);
-                    doSetTimeOut(j);
-                }
-            }
-        }
+        bubbleSort();
 
         console.log(arr); // AFTER SORT
         $(this).attr('disabled', false);
         $('#dataArrayRange').attr('disabled', false);
+    });
+
+    async function bubbleSort() {
+        for (var i = arr.length; i > 0; i--) {
+            // iterates through i (i = i-1 every iteration)
+            for (var j = 1; j < i; j++) {
+                if (arr[j - 1] > arr[j]) {
+                    await sleep((5/arr.length)*200).then(() => {
+                        arr = swap(j - 1, j, arr);
+                        doSetTimeOut(j);
+                    });
+                }
+            }
+        }
+    }
+
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+    async function loop() {
+        for (var i = 0; i < 10; i++) {
+            await sleep(1000).then(console.log(i));
+        }
+    }
+    $('#debug').on('click', function () {
+        loop();
     });
 }
 
