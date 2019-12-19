@@ -14,6 +14,10 @@ body {
     background-color: #bacddf;
 }
 
+.bg-highlighted {
+    background-color: #4ef56a;
+}
+
 .bg-darkgrey {
     background-color: #474646;
 }

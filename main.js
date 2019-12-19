@@ -28,47 +28,44 @@ window.onload = function () {
             return;
         }
 
-        console.log(arr); // BEFORE SORT
-        // BUBBLE SORT
-        // first loop goes down (highest to lowest sort)
-        bubbleSort();
+        bubbleSort(arr).then(() => {
+            $(this).attr('disabled', false);
+            $('#dataArrayRange').attr('disabled', false);
 
-        console.log(arr); // AFTER SORT
-        $(this).attr('disabled', false);
-        $('#dataArrayRange').attr('disabled', false);
-    });
-
-    async function bubbleSort() {
-        for (var i = arr.length; i > 0; i--) {
-            // iterates through i (i = i-1 every iteration)
-            for (var j = 1; j < i; j++) {
-                if (arr[j - 1] > arr[j]) {
-                    await sleep((5/arr.length)*200).then(() => {
-                        arr = swap(j - 1, j, arr);
-                        doSetTimeOut(j);
-                    });
-                }
-            }
-        }
-    }
-
-    function sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
-    async function loop() {
-        for (var i = 0; i < 10; i++) {
-            await sleep(1000).then(console.log(i));
-        }
-    }
-    $('#debug').on('click', function () {
-        loop();
+            completeSort(arr.length);
+        });
     });
 }
 
-function doSetTimeOut(j) {
-    setTimeout(() => {
-        visualSwap($('#' + (j - 1)), $('#' + j));
-    }, 1000);
+async function bubbleSort(arr) {
+    for (var i = arr.length; i > 0; i--) {
+        // iterates through i (i = i-1 every iteration)
+        for (var j = 1; j < i; j++) {
+            let dp1 = $('#' + (j - 1)).css('background-color', '#34b2ae');
+            let dp2 = $('#' + j).css('background-color', '#34b2ae');
+            if (arr[j - 1] > arr[j]) {
+                await sleep(1).then(() => {
+                    arr = swap(j - 1, j, arr);
+                    visualSwap(dp1, dp2);
+                });
+            }
+            dp1.css('background-color', '#bacddf');
+            dp2.css('background-color', '#bacddf');
+        }
+    }
+}
+
+async function completeSort(len) {
+    for (var i = 0; i < len; i++) {
+        await sleep(10).then(() => {
+            $('#' + i).css('background-color', '#34b2ae');
+            console.log('hello');
+        });
+    }
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 function swap(a, b, arr) {
@@ -90,20 +87,22 @@ function generateDataPoints(arr) {
     let maxHeight = 700;
     let width = 500 * (1 / arr.length);
 
-    let $dataPoints = $('<tr/>');
-    $dataPoints.attr('id', 'datapoints');
-    let $dPointContainer = $('<td/>');
-    $dPointContainer.addClass('align-bottom p-0');
-    let $dPoint = $('<div/>');
-    $dPoint.addClass('bg-unsorted mx-auto');
+    let $dataPoints = $('<tr/>')
+    .attr('id', 'datapoints');
+
+    let $dPointContainer = $('<td/>')
+    .addClass('align-bottom p-0');
+
+    let $dPoint = $('<div/>')
+    .addClass('mx-auto m-0 border border-dark')
+    .css('background-color', '#bacddf');
 
     for (var i = 0; i < arr.length; i++) {
         let height = maxHeight * (arr[i] / max);
 
         let dpoint = $dPointContainer.clone().append(
             $dPoint.clone().css({
-                'height': (height + 'px'),
-                'width': width + 'px'
+                'height': (height + 'px')
             }).attr('id', i));
         $dataPoints.append(dpoint);
     }
