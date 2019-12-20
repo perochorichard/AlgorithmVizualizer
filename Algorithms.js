@@ -43,27 +43,47 @@ async function bubbleSort(arr) {
     await completeSort(arr.length);
 }
 
-function quickSort(arr, low, high) {
+async function quickSort(arr, low, high) {
     if (low < high) {
-        let pivotIndex = partition(arr, low, high);
+        let pivotIndex = await partition(arr, low, high);
 
-        quickSort(arr, low, pivotIndex - 1);
-        quickSort(arr, pivotIndex + 1, high);
+        await quickSort(arr, low, pivotIndex - 1);
+        await quickSort(arr, pivotIndex + 1, high);
     }
-}
 
-function partition(arr, low, high) {
-    let i = low - 1;
+    async function partition(arr, low, high) {
+        $('#' + high).css('background-color', '#F1292B');
+        let i = low - 1;
 
-    for (var j = low; j <= high - 1; j++) {
-        if (arr[j] < arr[high]) {
-            i++;
-            swap(i, j, arr);
+        for (var j = low; j <= high - 1; j++) {
+            if (arr[j] < arr[high]) {
+                ++i;
+                let dp1 = $('#' + i);
+                let dp2 = $('#' + j);
+                dp1.css('background-color', highlight_color);
+                dp2.css('background-color', highlight_color);
+                await sleep(1).then(() => {
+                    swap(i, j, arr);
+                    visualSwap(dp1, dp2);
+                });
+                dp1.css('background-color', default_color);
+                dp2.css('background-color', default_color);
+            }
         }
+        let dp1 = $('#' + (i + 1));
+        let dp2 = $('#' + high);
+        dp1.css('background-color', highlight_color);
+        await sleep(1).then(() => {
+            swap(i + 1, high, arr);
+            visualSwap(dp1, dp2);
+        })
+        dp1.css('background-color', default_color);
+        dp2.css('background-color', default_color);
+        console.log('pass: ' + arr);
+        return (i + 1);
     }
-
-    swap(i + 1, high, arr);
-    return (i + 1);
 }
 
-export default { bubbleSort, quickSort };
+
+
+export default { bubbleSort, quickSort, completeSort };

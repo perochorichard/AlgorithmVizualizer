@@ -31,9 +31,13 @@ window.onload = function () {
                 });
                 break;
             case 'quicksort':
-                //disableControlPanel(true);
-                algorithms.quickSort(arr, 0, arr.length-1);
-                console.log('f: ' + arr);
+                disableControlPanel(true);
+                algorithms.quickSort(arr, 0, arr.length - 1).then(() => {
+                    console.log('f: ' + arr);
+                    algorithms.completeSort(arr.length).then(() => {
+                        disableControlPanel(false);
+                    });
+                });
                 break;
             default:
                 $('.toast').toast('show');
