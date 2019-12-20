@@ -2,10 +2,7 @@
 import algorithms from './Algorithms.js';
 
 window.onload = function () {
-    let arr = [...Array(5).keys()].map(i => ++i).sort(() => Math.random() - 0.5);
-    let $tbody = $('#tablebody');
-    let data = generateDataPoints(arr);
-    $tbody.append(data);
+    let arr = shuffle(5);
 
     $('#xaxis').attr('colspan', 200).append(
         $('<div/>').css('height', 30)
@@ -13,14 +10,24 @@ window.onload = function () {
 
     $(document).on('input', '#dataArrayRange', function () {
         let len = parseInt($(this).val(), 10);
-        arr = [...Array(len).keys()].map(i => ++i).sort(() => Math.random() - 0.5);
-        data = generateDataPoints(arr);
-        $tbody.children().remove('#datapoints');
-        $tbody.append(data);
+        arr = shuffle(len);
+    });
+
+    $('#algo-type').on('input', function() {
+        let algo = $(this).val();
+        switch(algo) {
+            case 'bubblesort':
+                $('#dataArrayRange').attr('max', 100).prop('value', 5);
+                arr = shuffle(5);
+                break;
+            case 'quicksort':
+                $('#dataArrayRange').attr('max', 200).prop('value', 5);
+                arr = shuffle(5);
+                break;
+        }
     });
 
     $('#sort').on('click', function () {
-        let runnable = null;
         let algo = $('#algo-type').val();
 
         switch (algo) {
@@ -40,19 +47,11 @@ window.onload = function () {
                 });
                 break;
             default:
-                $('.toast').toast('show');
+                warn();
                 return;
         }
 
     });
-}
-
-function disableControlPanel(bool) {
-    let temp = bool ? '<span class="spinner-border spinner-border-sm"></span> sorting..' : 'sort';
-
-    $('#sort').html(temp);
-    $('#sort').attr('disabled', bool);
-    $('#dataArrayRange').attr('disabled', bool);
 }
 
 function generateDataPoints(arr) {
@@ -81,3 +80,28 @@ function generateDataPoints(arr) {
 
     return $dataPoints;
 }
+
+function shuffle(len) {
+    let arr = [...Array(len).keys()].map(i => ++i).sort(() => Math.random() - 0.5);
+    let $tbody = $('#tablebody');
+    let data = generateDataPoints(arr);
+    $tbody.children().remove('#datapoints');
+    $tbody.append(data);
+    return arr;
+}
+
+async function warn() {
+    $('#warn').css('visibility', 'visible');
+    setTimeout(() => {
+        $('#warn').css('visibility', 'hidden');
+    }, 1500);
+}
+
+function disableControlPanel(bool) {
+    let temp = bool ? '<span class="spinner-border spinner-border-sm"></span> sorting..' : 'sort';
+
+    $('#sort').html(temp);
+    $('#sort').attr('disabled', bool);
+    $('#dataArrayRange').attr('disabled', bool);
+}
+

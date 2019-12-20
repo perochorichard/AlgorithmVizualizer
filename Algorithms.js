@@ -79,7 +79,6 @@ async function quickSort(arr, low, high) {
         })
         dp1.css('background-color', default_color);
         dp2.css('background-color', default_color);
-        console.log('pass: ' + arr);
         return (i + 1);
     }
 }
