@@ -1,3 +1,5 @@
+import sleep from './Async.js';
+
 let default_color = '#bacddf';
 let highlight_color = '#17A2B8';
 
@@ -31,10 +33,6 @@ function visualSwap(a, b) {
     let aHeight = a.css('height');
     a.css('height', b.css('height'));
     b.css('height', aHeight);
-}
-
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 async function completeSort(len) {
