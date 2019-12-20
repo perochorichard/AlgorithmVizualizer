@@ -42,8 +42,16 @@
                     <tbody>
                         <tr>
                             <td>
-                                <div class="lead text-white text-center">Control Panel</div>
-                                <div class="form-group mt-4">
+                                <div class="lead text-white text-center mb-3">Control Panel</div>
+                                <div class="form-group">
+                                    <label for="algo-type" class="text-white">algorithm</label>
+                                    <select id="algo-type" class="custom-select bg-info text-white">
+                                        <option selected>choose an algorithm...</option>
+                                        <option value="bubblesort">bubble sort</option>
+                                        <option value="quicksort">quick sort</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
                                     <label for="dataArrayRange" class="text-white p-0 m-1">data size</label>
                                     <input type="range" min='5' max='100' value='5'
                                         class="custom-range bg-info p-3 rounded" id="dataArrayRange">
