@@ -1,4 +1,6 @@
 
+import bubbleSort from './Algorithms.js';
+
 window.onload = function () {
     let arr = [...Array(5).keys()].map(i => ++i).sort(() => Math.random() - 0.5);
     let $tbody = $('#tablebody');
@@ -30,58 +32,11 @@ window.onload = function () {
         }
 
         bubbleSort(arr).then(() => {
-            completeSort(arr.length).then(() => {
-                $(this).html('sort');
-                $(this).attr('disabled', false);
-                $('#dataArrayRange').attr('disabled', false);
-            });
+            $(this).html('sort');
+            $(this).attr('disabled', false);
+            $('#dataArrayRange').attr('disabled', false);
         });
     });
-}
-
-async function bubbleSort(arr) {
-    for (var i = arr.length; i > 0; i--) {
-        // iterates through i (i = i-1 every iteration)
-        for (var j = 1; j < i; j++) {
-            let dp1 = $('#' + (j - 1));
-            let dp2 = $('#' + j);
-            dp1.css('background-color', '#17A2B8');
-            dp2.css('background-color', '#17A2B8');
-            if (arr[j - 1] > arr[j]) {
-                await sleep(1).then(() => {
-                    swap(j - 1, j, arr);
-                    visualSwap(dp1, dp2);
-                });
-            }
-            dp1.css('background-color', '#bacddf');
-            dp2.css('background-color', '#bacddf');
-        }
-    }
-}
-
-async function completeSort(len) {
-    for (var i = 0; i < len; i++) {
-        await sleep(10).then(() => {
-            $('#' + i).css('background-color', '#17A2B8');
-            console.log('hello');
-        });
-    }
-}
-
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-function swap(a, b, arr) {
-    let valA = arr[a];
-    arr[a] = arr[b];
-    arr[b] = valA;
-}
-
-function visualSwap(a, b) {
-    let aHeight = a.css('height');
-    a.css('height', b.css('height'));
-    b.css('height', aHeight);
 }
 
 function generateDataPoints(arr) {
