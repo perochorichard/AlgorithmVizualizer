@@ -20,9 +20,13 @@ window.onload = function () {
     });
 
     $('#sort').on('click', function () {
-        $(this).html('<span class="spinner-border spinner-border-sm"></span> sorting..');
-        $(this).attr('disabled', true);
-        $('#dataArrayRange').attr('disabled', true);
+        disableControlPanel(true);
+
+        let algo = $('#algo-type').val();
+        switch (algo) {
+            case 'bubblesort':
+
+        }
 
         // check if data exists to sort through
         let $datapoints = $('#datapoints');
@@ -32,11 +36,17 @@ window.onload = function () {
         }
 
         bubbleSort(arr).then(() => {
-            $(this).html('sort');
-            $(this).attr('disabled', false);
-            $('#dataArrayRange').attr('disabled', false);
+            disableControlPanel(false);
         });
     });
+}
+
+function disableControlPanel(bool) {
+    let temp = bool ? '<span class="spinner-border spinner-border-sm"></span> sorting..' : 'sort';
+    
+    $('#sort').html(temp);
+    $('#sort').attr('disabled', bool);
+    $('#dataArrayRange').attr('disabled', bool);
 }
 
 function generateDataPoints(arr) {
