@@ -6,10 +6,6 @@ body {
     background-color: #545454;
 }
 
-.bg-main {
-    background-color: #34b2ae;
-}
-
 .bg-unsorted {
     background-color: #bacddf;
 }
@@ -23,13 +19,13 @@ body {
 }
 
 .custom-range::-webkit-slider-thumb {
-    background: #34b2ae;
+    background: #343A40;
   }
   
   .custom-range::-moz-range-thumb {
-    background: #34b2ae;
+    background: #343A40;
   }
   
   .custom-range::-ms-thumb {
-    background: #34b2ae;
+    background: #343A40;
   }

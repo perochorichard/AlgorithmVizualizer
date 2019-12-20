@@ -18,6 +18,7 @@ window.onload = function () {
     });
 
     $('#sort').on('click', function () {
+        $(this).html('<span class="spinner-border spinner-border-sm"></span> sorting..');
         $(this).attr('disabled', true);
         $('#dataArrayRange').attr('disabled', true);
 
@@ -29,10 +30,11 @@ window.onload = function () {
         }
 
         bubbleSort(arr).then(() => {
-            $(this).attr('disabled', false);
-            $('#dataArrayRange').attr('disabled', false);
-
-            completeSort(arr.length);
+            completeSort(arr.length).then(() => {
+                $(this).html('sort');
+                $(this).attr('disabled', false);
+                $('#dataArrayRange').attr('disabled', false);
+            });
         });
     });
 }
@@ -41,11 +43,13 @@ async function bubbleSort(arr) {
     for (var i = arr.length; i > 0; i--) {
         // iterates through i (i = i-1 every iteration)
         for (var j = 1; j < i; j++) {
-            let dp1 = $('#' + (j - 1)).css('background-color', '#34b2ae');
-            let dp2 = $('#' + j).css('background-color', '#34b2ae');
+            let dp1 = $('#' + (j - 1));
+            let dp2 = $('#' + j);
+            dp1.css('background-color', '#17A2B8');
+            dp2.css('background-color', '#17A2B8');
             if (arr[j - 1] > arr[j]) {
                 await sleep(1).then(() => {
-                    arr = swap(j - 1, j, arr);
+                    swap(j - 1, j, arr);
                     visualSwap(dp1, dp2);
                 });
             }
@@ -58,7 +62,7 @@ async function bubbleSort(arr) {
 async function completeSort(len) {
     for (var i = 0; i < len; i++) {
         await sleep(10).then(() => {
-            $('#' + i).css('background-color', '#34b2ae');
+            $('#' + i).css('background-color', '#17A2B8');
             console.log('hello');
         });
     }
@@ -72,8 +76,6 @@ function swap(a, b, arr) {
     let valA = arr[a];
     arr[a] = arr[b];
     arr[b] = valA;
-
-    return arr;
 }
 
 function visualSwap(a, b) {
@@ -84,18 +86,17 @@ function visualSwap(a, b) {
 
 function generateDataPoints(arr) {
     let max = Math.max.apply(null, arr);
-    let maxHeight = 700;
-    let width = 500 * (1 / arr.length);
+    let maxHeight = 0.5 * window.innerHeight;
 
     let $dataPoints = $('<tr/>')
-    .attr('id', 'datapoints');
+        .attr('id', 'datapoints');
 
     let $dPointContainer = $('<td/>')
-    .addClass('align-bottom p-0');
+        .addClass('align-bottom p-0');
 
     let $dPoint = $('<div/>')
-    .addClass('mx-auto m-0 border border-dark')
-    .css('background-color', '#bacddf');
+        .addClass('mx-auto m-0 border border-dark')
+        .css('background-color', '#bacddf');
 
     for (var i = 0; i < arr.length; i++) {
         let height = maxHeight * (arr[i] / max);
