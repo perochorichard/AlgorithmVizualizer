@@ -20,30 +20,29 @@ window.onload = function () {
     });
 
     $('#sort').on('click', function () {
-        disableControlPanel(true);
-
         let algo = $('#algo-type').val();
+
         switch (algo) {
             case 'bubblesort':
-
+                disableControlPanel(true);
+                bubbleSort(arr).then(() => {
+                    disableControlPanel(false);
+                });
+                break;
+            case 'quicksort':
+                console.log('quicksort');
+                break;
+            default:
+                $('.toast').toast('show');
         }
 
-        // check if data exists to sort through
-        let $datapoints = $('#datapoints');
-        if ($datapoints.length <= 0) {
-            console.log('data points don\'t exist');
-            return;
-        }
 
-        bubbleSort(arr).then(() => {
-            disableControlPanel(false);
-        });
     });
 }
 
 function disableControlPanel(bool) {
     let temp = bool ? '<span class="spinner-border spinner-border-sm"></span> sorting..' : 'sort';
-    
+
     $('#sort').html(temp);
     $('#sort').attr('disabled', bool);
     $('#dataArrayRange').attr('disabled', bool);
