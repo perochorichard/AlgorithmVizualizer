@@ -23,7 +23,7 @@ async function completeSort(len) {
     }
 }
 
-export default async function bubbleSort(arr) {
+async function bubbleSort(arr) {
     for (var i = arr.length; i > 0; i--) {
         for (var j = 1; j < i; j++) {
             let dp1 = $('#' + (j - 1));
@@ -42,3 +42,28 @@ export default async function bubbleSort(arr) {
     }
     await completeSort(arr.length);
 }
+
+function quickSort(arr, low, high) {
+    if (low < high) {
+        let pivotIndex = partition(arr, low, high);
+
+        quickSort(arr, low, pivotIndex - 1);
+        quickSort(arr, pivotIndex + 1, high);
+    }
+}
+
+function partition(arr, low, high) {
+    let i = low - 1;
+
+    for (var j = low; j <= high - 1; j++) {
+        if (arr[j] < arr[high]) {
+            i++;
+            swap(i, j, arr);
+        }
+    }
+
+    swap(i + 1, high, arr);
+    return (i + 1);
+}
+
+export default { bubbleSort, quickSort };

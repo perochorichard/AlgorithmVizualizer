@@ -1,5 +1,5 @@
 
-import bubbleSort from './Algorithms.js';
+import algorithms from './Algorithms.js';
 
 window.onload = function () {
     let arr = [...Array(5).keys()].map(i => ++i).sort(() => Math.random() - 0.5);
@@ -20,22 +20,25 @@ window.onload = function () {
     });
 
     $('#sort').on('click', function () {
+        let runnable = null;
         let algo = $('#algo-type').val();
 
         switch (algo) {
             case 'bubblesort':
                 disableControlPanel(true);
-                bubbleSort(arr).then(() => {
+                algorithms.bubbleSort(arr).then(() => {
                     disableControlPanel(false);
                 });
                 break;
             case 'quicksort':
-                console.log('quicksort');
+                //disableControlPanel(true);
+                algorithms.quickSort(arr, 0, arr.length-1);
+                console.log('f: ' + arr);
                 break;
             default:
                 $('.toast').toast('show');
+                return;
         }
-
 
     });
 }
