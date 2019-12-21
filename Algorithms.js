@@ -83,6 +83,8 @@ async function quickSort(arr, low, high) {
     }
 }
 
-
+async function mergeSort(arr, left, right) {
+    // TODO: implement merge sort
+}
 
 export default { bubbleSort, quickSort, completeSort };

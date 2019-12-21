@@ -13,18 +13,21 @@ window.onload = function () {
         arr = shuffle(len);
     });
 
-    $('#algo-type').on('input', function() {
+    $('#algo-type').on('input', function () {
+        let max = 0;
         let algo = $(this).val();
-        switch(algo) {
+        switch (algo) {
             case 'bubblesort':
-                $('#dataArrayRange').attr('max', 100).prop('value', 5);
-                arr = shuffle(5);
+                max = 100;
                 break;
             case 'quicksort':
-                $('#dataArrayRange').attr('max', 200).prop('value', 5);
-                arr = shuffle(5);
+                max = 200;
                 break;
+            case 'mergesort':
+                max = 200;
         }
+        $('#dataArrayRange').attr('max', max).prop('value', 5);
+        arr = shuffle(5);
     });
 
     $('#sort').on('click', function () {
@@ -46,6 +49,8 @@ window.onload = function () {
                     });
                 });
                 break;
+            case 'mergesort':
+                algorithms.mergeSort(arr, 0, arr.length - 1);
             default:
                 warn();
                 return;
@@ -103,5 +108,6 @@ function disableControlPanel(bool) {
     $('#sort').html(temp);
     $('#sort').attr('disabled', bool);
     $('#dataArrayRange').attr('disabled', bool);
+    $('#algo-type').attr('disabled', bool);
 }
 
