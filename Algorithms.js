@@ -84,7 +84,50 @@ async function quickSort(arr, low, high) {
 }
 
 async function mergeSort(arr, left, right) {
-    // TODO: implement merge sort
+    if (arr.length == 1) {
+        return arr;
+    }
+
+    let middle = Math.round((arr.length) / 2);
+
+    let temp1 = arr.slice(0, middle);
+    let temp2 = arr.slice(middle, arr.length);
+
+    temp1 = mergeSort(temp1);
+    temp2 = mergeSort(temp2);
+
+    return merge(temp1, temp2);
+
+    function merge(arr1, arr2) {
+        let arr3 = [];
+
+        let i = 0;
+        let j = 0;
+        while ((i < arr1.length) && (j < arr2.length)) {
+            let a = arr1[i];
+            let b = arr2[j];
+
+            if (a < b) {
+                arr3.push(a);
+                ++i;
+            } else {
+                arr3.push(b);
+                ++j;
+            }
+        }
+
+        while (i < arr1.length) {
+            arr3.push(arr1[i]);
+            ++i;
+        }
+
+        while (j < arr2.length) {
+            arr3.push(arr2[j]);
+            ++j;
+        }
+
+        return arr3;
+    }
 }
 
 export default { bubbleSort, quickSort, completeSort };
