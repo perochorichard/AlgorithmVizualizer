@@ -14,5 +14,6 @@ export default class BubbleSort extends Algorithm {
                 }
             }
         }
+        await this.completedEvent();
     }
 }

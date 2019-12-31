@@ -1,10 +1,11 @@
 import sleep from './Async.js';
-import BubbleSort from './BubbleSort.js';
+import BubbleSort from './Algorithms/BubbleSort.js';
+import QuickSort from './Algorithms/QuickSort.js';
 
 let DEFAULT_COLOR = '#bacddf';
 let HIGHLIGHTED_COLOR = '#17A2B8';
 
-let arr = [...Array(100).keys()].map(i => ++i).sort(() => Math.random() - 0.5);;
+let arr = [];
 
 async function swap(i, j) {
     let dp1 = $('#' + i);
@@ -21,14 +22,14 @@ async function swap(i, j) {
     });
 }
 
-window.onload = function() {
-    $('#tablebody').append(generateDataPoints(arr));
-    $('#sort').on('click', function () {
-        let bs = new BubbleSort(arr);
-        bs.updateEvent = swap;
-        bs.sort();
-    });
+async function completeSort() {
+    for (var i = 0; i < arr.length; i++) {
+        await sleep(1).then(() => {
+            $('#' + i).css('background-color', HIGHLIGHTED_COLOR);
+        });
+    }
 }
+
 
 function generateDataPoints(arr) {
     let max = Math.max.apply(null, arr);
@@ -54,4 +55,15 @@ function generateDataPoints(arr) {
     }
 
     return $dataPoints;
+}
+
+window.onload = function() {
+    arr = [...Array(100).keys()].map(i => ++i).sort(() => Math.random() - 0.5);
+    $('#tablebody').append(generateDataPoints(arr));
+    $('#sort').on('click', function () {
+        let bs = new QuickSort(arr);
+        bs.updateEvent = swap;
+        bs.completedEvent = completeSort;
+        bs.sort();
+    });
 }

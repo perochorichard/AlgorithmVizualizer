@@ -1,6 +1,6 @@
 
 import algorithms from './Algorithms.js';
-import BubbleSort from './BubbleSort.js';
+import BubbleSort from './Algorithms/BubbleSort.js';
 window.onload = function () {
     let algorithms = [new BubbleSort()];
     let arr = shuffle(5);
