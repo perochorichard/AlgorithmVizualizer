@@ -21,9 +21,10 @@ export default class QuickSort extends Algorithm {
     // partitions based on last element of sub-array
     async partition(low, high) {
         let i = low - 1;
+        let pivot = this.arr[high];
 
         for (var j = low; j < high; j++) {
-            if (this.arr[j] < this.arr[high]) {
+            if (this.arr[j] < pivot) {
                 ++i;
                 this.swap(i, j);
                 await this.updateEvent(i, j);
