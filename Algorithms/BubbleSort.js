@@ -1,4 +1,5 @@
 import Algorithm from './Algorithm.js';
+import sleep from '../Async.js';
 
 export default class BubbleSort extends Algorithm {
     constructor(arr) {
@@ -15,5 +16,19 @@ export default class BubbleSort extends Algorithm {
             }
         }
         await this.completedEvent();
+    }
+
+    async updateEvent(i, j) {
+        let dp1 = $('#' + i);
+        let dp2 = $('#' + j);
+        dp1.css('background-color', this.HIGHLIGHTED_COLOR);
+        dp2.css('background-color', this.HIGHLIGHTED_COLOR);
+    
+        await sleep(0).then(() => {
+            dp1.css('height', this.arr[i]);
+            dp2.css('height', this.arr[j]);
+            dp1.css('background-color', this.DEFAULT_COLOR);
+            dp2.css('background-color', this.DEFAULT_COLOR);
+        });
     }
 }

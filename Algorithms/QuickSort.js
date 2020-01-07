@@ -1,12 +1,28 @@
 import Algorithm from './Algorithm.js';
+import sleep from '../Async.js';
 
 export default class QuickSort extends Algorithm {
     constructor(arr) {
         super(arr);
     }
 
-    sort() {
-        this.quickSort(0, this.arr.length-1);
+    async sort() {
+        await this.quickSort(0, this.arr.length-1);
+        await this.completedEvent();
+    }
+
+    async updateEvent(i, j) {
+        let dp1 = $('#' + i);
+        let dp2 = $('#' + j);
+        dp1.css('background-color', this.HIGHLIGHTED_COLOR);
+        dp2.css('background-color', this.HIGHLIGHTED_COLOR);
+    
+        await sleep(0).then(() => {
+            dp1.css('height', this.arr[i]);
+            dp2.css('height', this.arr[j]);
+            dp1.css('background-color', this.DEFAULT_COLOR);
+            dp2.css('background-color', this.DEFAULT_COLOR);
+        });
     }
 
     async quickSort(low, high) {

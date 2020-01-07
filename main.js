@@ -1,35 +1,9 @@
-import sleep from './Async.js';
 import BubbleSort from './Algorithms/BubbleSort.js';
 import QuickSort from './Algorithms/QuickSort.js';
+import InsertionSort from './Algorithms/InsertionSort.js';
 
-let DEFAULT_COLOR = '#bacddf';
-let HIGHLIGHTED_COLOR = '#17A2B8';
-let ALGORITHMS = [BubbleSort, QuickSort];
+let ALGORITHMS = [BubbleSort, QuickSort, InsertionSort];
 let arr = [];
-
-async function swap(i, j) {
-    let dp1 = $('#' + i);
-    let dp2 = $('#' + j);
-    dp1.css('background-color', HIGHLIGHTED_COLOR);
-    dp2.css('background-color', HIGHLIGHTED_COLOR);
-    
-    await sleep(0).then(() => {
-        let tmp = dp1.css('height');
-        dp1.css('height', dp2.css('height'));
-        dp2.css('height', tmp);
-        dp1.css('background-color', DEFAULT_COLOR);
-        dp2.css('background-color', DEFAULT_COLOR);
-    });
-}
-
-async function completeSort() {
-    for (var i = 0; i < arr.length; i++) {
-        await sleep(1).then(() => {
-            $('#' + i).css('background-color', HIGHLIGHTED_COLOR);
-        });
-    }
-}
-
 
 function generateDataPoints(arr) {
     let max = Math.max.apply(null, arr);
@@ -52,21 +26,52 @@ function generateDataPoints(arr) {
                 'height': (height + 'px')
             }).attr('id', i));
         $dataPoints.append(dpoint);
+
+        arr[i] = height;
     }
+    console.log(arr);
 
     return $dataPoints;
 }
 
-window.onload = function() {
-    arr = [...Array(1000).keys()].map(i => ++i).sort(() => Math.random() - 0.5);
+window.onload = function () {
+    arr = [...Array(10).keys()].map(i => ++i).sort(() => Math.random() - 0.5);
     $('#tablebody').append(generateDataPoints(arr));
-    
+
     // sorts the data set with specific algorithm
     $('#sort').on('click', function () {
-        let algo_index = parseInt($('#algo-type').val(), 10);
-        let algo = new ALGORITHMS[algo_index](arr);
-        algo.updateEvent = swap;
-        algo.completedEvent = completeSort;
-        algo.sort();
+        try {
+            console.log(arr);
+            let algo_index = parseInt($('#algo-type').val(), 10);
+            let algo = new ALGORITHMS[algo_index](arr);
+            algo.sort().then(() => {
+                console.log(arr);
+            })
+        } catch(err) {
+            console.log(err);
+            warn();
+        }
     });
+
+    $('#shuffle').on('click', function() {
+        shuffle(arr.length);
+    });
+
+    $('#array-range').on('input', function() {
+        let l = parseInt($(this).val(), 10);
+        shuffle(l);
+    });
+}
+
+function shuffle(len) {
+    $('#tablebody').children().remove();
+    arr = [...Array(len).keys()].map(i => ++i).sort(() => Math.random() - 0.5);
+    $('#tablebody').append(generateDataPoints(arr));
+}
+
+async function warn() {
+    $('#warn').css('visibility', 'visible');
+    setTimeout(() => {
+        $('#warn').css('visibility', 'hidden');
+    }, 1500);
 }

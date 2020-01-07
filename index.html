@@ -46,13 +46,13 @@
                                         <option selected>choose an algorithm...</option>
                                         <option value="0">bubble sort</option>
                                         <option value="1">quick sort</option>
-                                        <option value="2">merge sort</option>
+                                        <option value="2">insertion sort</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="dataArrayRange" class="text-white p-0 m-1">data size</label>
-                                    <input type="range" min='5' max='100' value='5'
-                                        class="custom-range bg-info p-3 rounded" id="dataArrayRange">
+                                    <label for="array-range" class="text-white p-0 m-1">data size</label>
+                                    <input type="range" min='5' max='600' value='5'
+                                        class="custom-range bg-info p-3 rounded" id="array-range">
                                 </div>
                             </td>
                         </tr>
@@ -61,6 +61,7 @@
                                 <div id="warn" class="alert alert-warning" style="visibility: hidden;">
                                     select an algorithm
                                 </div>
+                                <button id="shuffle" class="btn btn-info btn-block">shuffle array</button>
                                 <button id="sort" class="btn btn-info btn-block">sort</button>
                             </td>
                         </tr>
