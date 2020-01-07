@@ -5,6 +5,35 @@ import InsertionSort from './Algorithms/InsertionSort.js';
 let ALGORITHMS = [BubbleSort, QuickSort, InsertionSort];
 let arr = [];
 
+window.onload = function () {
+    arr = [...Array(10).keys()].map(i => ++i).sort(() => Math.random() - 0.5);
+    $('#tablebody').append(generateDataPoints(arr));
+
+    // sorts the data set with specific algorithm
+    $('#sort').on('click', function () {
+        try {
+            disablePanel(true);
+            let algo_index = parseInt($('#algo-type').val(), 10);
+            let algo = new ALGORITHMS[algo_index](arr);
+            algo.sort().then(() => {
+                disablePanel(false);
+            });
+        } catch(err) {
+            console.log(err);
+            warn();
+        }
+    });
+
+    $('#shuffle').on('click', function() {
+        shuffle(arr.length);
+    });
+
+    $('#array-range').on('input', function() {
+        let l = parseInt($(this).val(), 10);
+        shuffle(l);
+    });
+}
+
 function generateDataPoints(arr) {
     let max = Math.max.apply(null, arr);
     let maxHeight = 0.5 * window.innerHeight;
@@ -29,38 +58,8 @@ function generateDataPoints(arr) {
 
         arr[i] = height;
     }
-    console.log(arr);
 
     return $dataPoints;
-}
-
-window.onload = function () {
-    arr = [...Array(10).keys()].map(i => ++i).sort(() => Math.random() - 0.5);
-    $('#tablebody').append(generateDataPoints(arr));
-
-    // sorts the data set with specific algorithm
-    $('#sort').on('click', function () {
-        try {
-            console.log(arr);
-            let algo_index = parseInt($('#algo-type').val(), 10);
-            let algo = new ALGORITHMS[algo_index](arr);
-            algo.sort().then(() => {
-                console.log(arr);
-            })
-        } catch(err) {
-            console.log(err);
-            warn();
-        }
-    });
-
-    $('#shuffle').on('click', function() {
-        shuffle(arr.length);
-    });
-
-    $('#array-range').on('input', function() {
-        let l = parseInt($(this).val(), 10);
-        shuffle(l);
-    });
 }
 
 function shuffle(len) {
@@ -74,4 +73,14 @@ async function warn() {
     setTimeout(() => {
         $('#warn').css('visibility', 'hidden');
     }, 1500);
+}
+
+function disablePanel(bool) {
+    let temp = bool ? '<span class="spinner-border spinner-border-sm"></span> sorting..' : 'sort';
+
+    $('#sort').html(temp);
+    $('#sort').attr('disabled', bool);
+    $('#array-range').attr('disabled', bool);
+    $('#algo-type').attr('disabled', bool);
+    $('#shuffle').attr('disabled', bool);
 }
