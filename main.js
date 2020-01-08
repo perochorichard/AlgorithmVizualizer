@@ -1,12 +1,13 @@
 import BubbleSort from './Algorithms/BubbleSort.js';
 import QuickSort from './Algorithms/QuickSort.js';
 import InsertionSort from './Algorithms/InsertionSort.js';
+import MergeSort from './Algorithms/MergeSort.js';
 
-let ALGORITHMS = [BubbleSort, QuickSort, InsertionSort];
+let ALGORITHMS = [BubbleSort, QuickSort, InsertionSort, MergeSort];
 let arr = [];
 
 window.onload = function () {
-    arr = [...Array(10).keys()].map(i => ++i).sort(() => Math.random() - 0.5);
+    arr = [...Array(50).keys()].map(i => ++i).sort(() => Math.random() - 0.5);
     $('#tablebody').append(generateDataPoints(arr));
 
     // sorts the data set with specific algorithm
@@ -17,9 +18,10 @@ window.onload = function () {
             let algo = new ALGORITHMS[algo_index](arr);
             algo.sort().then(() => {
                 disablePanel(false);
+                arr = algo.arr;
             });
         } catch(err) {
-            console.log(err);
+            disablePanel(false);
             warn();
         }
     });
@@ -83,4 +85,6 @@ function disablePanel(bool) {
     $('#array-range').attr('disabled', bool);
     $('#algo-type').attr('disabled', bool);
     $('#shuffle').attr('disabled', bool);
+
+    $('#stop').attr('hidden', !bool);
 }
